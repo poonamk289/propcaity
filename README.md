@@ -1,3 +1,13 @@
+
+# Google keep clone
+Google keep clone helps the user to  create there notes with some some functionality
+
+# Function performed
+It will create the note which contain the title and content of the note.
+It allows user to delete the note whenever they want .
+It has a color palette so if user wants to mark some important they can use this feature.
+It is responsive so it is use in any device.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
