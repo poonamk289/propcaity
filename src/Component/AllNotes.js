@@ -2,36 +2,56 @@ import React, { useContext, useEffect, useState } from 'react'
 import './note.css';
 import SingleNote from './SingleNote';
 import MyContext from '../Context/MyContext';
-function AllNotes({view}) {
-    const [storedData,setStoredData] = useState([]);
-    const {value,update} = useContext(MyContext);
-    
-    
-    const array1 = JSON.parse(localStorage.getItem("notesArray"))||[];
-    const updateArray = (arr)=>{
-        array1=arr;
-    }
-    console.log(array1,storedData);
-    
+function AllNotes({view,search}) {
    
+    const {message,value,update,setMessage} = useContext(MyContext);
+    // const [localMessage,setLocalMessage] = useState([]);
+    const array1=JSON.parse(localStorage.getItem("notesArray"));
+    const updateObjectInLocalStorage =(updateobj)=>{
+         const index= array1.findIndex(obj=>obj.sno===updateobj.sno)
+         if(index!==-1){
+            const updateMessage = [...array1];
+            updateMessage[index]=updateobj;
+            setMessage(updateMessage);
+            localStorage.setItem('notesArray', JSON.stringify(updateMessage));
+         }
+    } 
+
+    const deleteObjectFromLocalStorage =(sno)=>{
+      const updatedobj= array1.filter(obj=>obj.sno!==sno);
+      setMessage(updatedobj);
+      localStorage.setItem("notesArray",JSON.stringify(updatedobj));
+    }
+    
+    const filteredMessages = array1.filter(obj => obj.title.toLowerCase() === search.toLowerCase());
+    console.log(filteredMessages);
+    const length=filteredMessages.length?"t":"";
+    
   return (
     <div className='container-note' style={{display:view,flexDirection:"column"}}>
-        {
-           array1 && array1.map((value,index)=>(
-                <SingleNote index={index+1} sno={value.sno} title={value.title} content={value.content} array1={array1}
-                    updateArray={updateArray}
-                />
-            ))
-        }
-       
+      { length && filteredMessages.map((note)=>(
+        <SingleNote note={note} updateObjectInLocalStorage={updateObjectInLocalStorage}
+        deleteObjectFromLocalStorage={deleteObjectFromLocalStorage}
+        />
+       ))
+      
+      }
+      {
+       !length && array1.map((note)=>(
+        <SingleNote note={note} updateObjectInLocalStorage={updateObjectInLocalStorage}
+        deleteObjectFromLocalStorage={deleteObjectFromLocalStorage}
+        />
+       ))
+        
+      }
+      
+       {/* <SingleNote/> */}
+       {/* <SingleNote/> */}
         {/* <p>{value}</p> */}
     </div>
   )
 }
 
-const useForceUpdate = () => {
-    const [, forceUpdate] = React.useReducer((x) => x + 1, 0);
-    return forceUpdate;
-  };
+
 
 export default AllNotes;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { SiGooglekeep } from "react-icons/si";
 import { HiMenu } from "react-icons/hi";
 import { IoRefresh } from "react-icons/io5";
@@ -13,32 +13,42 @@ import { MdOutlineArchive } from "react-icons/md";
 import { MdDeleteSweep } from "react-icons/md";
 import { CiGrid2H } from "react-icons/ci";
 import './Component/note.css';
-function Header({setView,view}) {
-  const changeView=()=>{
-    if(view){
-    setView("");
+import './App.css';
+
+function Header({view,setView,setSearch}) {
+    const [hide,SetHide] = useState("none");
+    const changeView=()=>{
+        if(view==="grid"){
+        setView("flex");
+        }else{
+          setView("grid");
+        }
+      }
+  const openNavBar=()=>{
+    if(hide==="none"){
+        SetHide("block");
     }else{
-      setView("flex");
+        SetHide("none");  
     }
+    console.log(hide);
   }
   return (
  <div>
     <div className="header">
         
         <div style={{display:"flex",alignItems:"center"}}>
-             <HiMenu  style={{fontSize:"30px"}}/>
+            <div className="nav-open" onClick={openNavBar}> <HiMenu  style={{fontSize:"30px"}}/></div>
             <SiGooglekeep  style={{color:"orange" ,fontSize:"50px"}}/>
             <h2>Google-Keep-Clone</h2>
         </div>
        
-           <input type="text" placeholder="Search" className="search-input"/>
+           <input type="text" placeholder="Search" className="search-input" onChange={(e)=>{setSearch(e.target.value)}}/>
         <div className="right-icons">
             <div><IoRefresh /></div>
             <div onClick={changeView}>
-              {view &&<CiGrid41 />}
-              {!view && <CiGrid2H />}
-              
-              </div>
+               {(view==="flex") && <CiGrid41 />} 
+               {(view!=="flex") && <CiGrid2H />} 
+            </div>
             <div><IoSettingsOutline /></div>
             <div><MdGridOn /></div>
 
@@ -47,11 +57,11 @@ function Header({setView,view}) {
             <hr/>
 
        <div className="drop-down">
-            <div><IoBulbOutline /><span className="nav">Notes</span></div>
-            <div><IoNotifications /><span className="nav">Reminder</span></div>
-            <div><FaRegEdit /><span className="nav">EditNote</span></div>
-            <div><MdOutlineArchive /><span className="nav">Archive</span></div>
-                <div><MdDeleteSweep /><span className="nav">Trash</span></div>
+            <div><IoBulbOutline /><span className={`nav ${hide}`} >Notes</span></div>
+            <div><IoNotifications /><span className={`nav ${hide}`} >Reminder</span></div>
+            <div><FaRegEdit /><span className={`nav ${hide}`} >EditNote</span></div>
+            <div><MdOutlineArchive /><span className={`nav ${hide}`}>Archive</span></div>
+            <div><MdDeleteSweep /><span className={`nav ${hide}`} >Trash</span></div>
        </div>
 
 </div>

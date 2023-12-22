@@ -10,38 +10,48 @@ import { LuUndo2 } from "react-icons/lu";
 import { LuRedo2 } from "react-icons/lu";
 import './extra.css';
 
-import MyContext from '../Context/MyContext';
-function ExtraIcons({value}) {
-    const {color,setColor} = useContext(MyContext);
-    const [hide,setHide] = useState("hide");
-    const changeColor = (e)=>{
-        console.log(e.target.style.background);
-        console.log(color);
-        setColor(`${e.target.style.background}`);
+import MyContext from './../Context/MyContext';
+const ExtraIcons=()=> {
+   const {color,setColor} = useContext(MyContext);
+   const [hide,SetHide] = useState("none");
+   const updateColor=(e)=>{
+        // console.log(e.target.style.background);
+        setColor(e.target.style.background);
+        SetHide("none"); 
+   }
+   console.log(color);
+
+   const openPalette=()=>{
+    if(hide==="none"){
+        SetHide("block");
+    }else{
+        SetHide("none");  
     }
-    const updateshow=(e)=>{
-        setHide("");
-        console.log(e.target);
-    }
+    console.log(hide);
+   }
+//    const changePalette=()=>{
+//         SetHide("block");
+//    }
   return (
-    <div className='textarea-icons'>
+    <div className='textarea-icons' >
     <div>
     <span><MdNotificationAdd /></span>
     </div>
     <div>
     <span><FaUserPlus /></span>
     </div>
-    <div className='color-div'>
-        <span><IoIosColorPalette /></span>
-        <div className={`colorp`}  style={{display:value}}>
-            <div style={{background:"coral",padding:"1rem",borderRadius:"50%"}} onClick={changeColor}></div>
-            <div style={{background:"aquamarine",padding:"1rem",borderRadius:"50%"}} onClick={changeColor}></div>
-            <div style={{background:"rgb(244, 244, 107)",padding:"1rem",borderRadius:"50%"}} onClick={changeColor}></div>
-            <div style={{background:"rgb(124, 231, 124)",padding:"1rem",borderRadius:"50%"}} onClick={changeColor}></div>
-            <div style={{background:"rgb(241, 182, 241)",padding:"1rem",borderRadius:"50%"}} onClick={changeColor}></div>
-            <div style={{background:"rgb(176, 127, 127)",padding:"1rem",borderRadius:"50%"}} onClick={changeColor}></div>
-            {/* <div style={{background:"rgb(162, 162, 230)",padding:"1rem",borderRadius:"50%"}} onClick={changeColor}></div> */}
-            {/* <div style={{background:"rgb(214, 77, 77)",padding:"1rem",borderRadius:"50%"}} onClick={changeColor}></div> */}
+    <div className='color-div' >
+        <span onClick={openPalette}><IoIosColorPalette /></span>
+        <div className={`colorp ${hide}`} >
+            <div className='d-colors' style={{background:"white",border:"1px solid grey"}} onClick={updateColor} ></div>
+            <div className='d-colors' style={{background:"coral",}} onClick={updateColor}></div>
+            <div className='d-colors' style={{background:"aquamarine",}} onClick={updateColor}></div>
+            <div className='d-colors' style={{background:"rgb(244, 244, 107)",}} onClick={updateColor}></div>
+            <div className='d-colors' style={{background:"rgb(124, 231, 124)",}} onClick={updateColor}></div>
+            <div className='d-colors' style={{background:"rgb(241, 182, 241)",}} onClick={updateColor}></div>
+            <div className='d-colors' style={{background:"rgb(176, 127, 127)",}} onClick={updateColor}></div>
+            {/* <div className='d-colors' style={{background:"rgb(162, 162, 230)",}} ></div> */}
+            {/* <div className='d-colors' style={{background:"rgb(214, 77, 77)",}} ></div> */}
         </div>
         
     </div>

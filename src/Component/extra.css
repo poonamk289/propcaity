@@ -1,5 +1,5 @@
 .colorp{
-    display: flex;
+   
     gap: 10px;
     border: 1px solid gray;
     padding: 0.5rem;
@@ -10,4 +10,43 @@
 color-div{
     position: relative;
 
+}
+.none{
+    display: none;
+}
+.block{
+    display: flex;
+}
+.d-colors{
+    padding:1rem;
+    border-radius: 50%;
+}
+.d-colors:hover{
+    box-shadow: 2px 2px 8px 1px rgb(72, 72, 72);
+}
+.edit-title{
+    padding:5px;
+   
+    border-radius: 5px;
+    font-size: 18px;
+    /* background-color: smoky; */
+    /* color: rgb(168, 153, 153); */
+    border:none;
+    outline: none;
+    background-color: inherit;
+    box-shadow: 2px 2px 8px 1px rgb(72, 72, 72);
+}
+.edit-content{
+    padding:2px;
+   
+    border-radius: 3px;
+    font-size: 15px;
+    height: 30vh;
+    /* background-color: smoky; */
+    /* color: rgb(168, 153, 153); */
+    border:none;
+    outline: none;
+    margin: 5px;
+    background-color: inherit;
+    box-shadow: 2px 2px 15px -1px rgb(72, 72, 72);
 }
