@@ -18,26 +18,28 @@ function AllNotes({view,search}) {
     } 
 
     const deleteObjectFromLocalStorage =(sno)=>{
+      
       const updatedobj= array1.filter(obj=>obj.sno!==sno);
       setMessage(updatedobj);
       localStorage.setItem("notesArray",JSON.stringify(updatedobj));
+      
     }
-    
-    const filteredMessages = array1.filter(obj => obj.title.toLowerCase() === search.toLowerCase());
-    console.log(filteredMessages);
-    const length=filteredMessages.length?"t":"";
+    // let length="";
+    // let filteredMessages=[];
+    // if(array1){
+    //   filteredMessages  = array1.filter(obj => obj.title.toLowerCase() === search.toLowerCase());
+    //   console.log(filteredMessages);
+    //    length=filteredMessages.length?"t":"";
+    // }else{
+    //   console.log("array1 is null");
+    // }
+   
     
   return (
     <div className='container-note' style={{display:view,flexDirection:"column"}}>
-      { length && filteredMessages.map((note)=>(
-        <SingleNote note={note} updateObjectInLocalStorage={updateObjectInLocalStorage}
-        deleteObjectFromLocalStorage={deleteObjectFromLocalStorage}
-        />
-       ))
-      
-      }
+     
       {
-       !length && array1.map((note)=>(
+       array1 && array1.map((note)=>(
         <SingleNote note={note} updateObjectInLocalStorage={updateObjectInLocalStorage}
         deleteObjectFromLocalStorage={deleteObjectFromLocalStorage}
         />
@@ -55,3 +57,11 @@ function AllNotes({view,search}) {
 
 
 export default AllNotes;
+
+// { length && filteredMessages.map((note)=>(
+//   <SingleNote note={note} updateObjectInLocalStorage={updateObjectInLocalStorage}
+//   deleteObjectFromLocalStorage={deleteObjectFromLocalStorage}
+//   />
+//  ))
+
+// }
